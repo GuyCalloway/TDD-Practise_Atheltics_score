@@ -8,4 +8,8 @@ describe "results" do
     it "Returns '' when passed an empty string" do
         expect(results('')).to eq('')
     end
+
+    it "Returns 'Range: 11|11|11 Average: 11|11|11 Median: 11|11|' when passed '11|11|11'" do
+        expect(results('11|11|11')).to eq('Range: 11|11|11 Average: 11|11|11 Median: 11|11|11')
+    end
 end

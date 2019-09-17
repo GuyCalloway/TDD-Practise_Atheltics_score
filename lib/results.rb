@@ -1,3 +1,9 @@
 def results(string)
-    return ('Range: 00|00|00 Average: 00|00|00 Median: 00|00|00')
+    
+    if string == ''
+        return ''
+    else
+        return "Range: #{string} Average: #{string} Median: #{string}"
+    end
+
 end
