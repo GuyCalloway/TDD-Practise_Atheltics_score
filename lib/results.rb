@@ -12,6 +12,38 @@ def times_to_seconds(string)
     return total
 end
 
+def seconds_to_times(int)
+    tot_mins = 0
+    seconds = 0
+
+    hours = int/3600
+
+    while int/60 != 0
+        int -= 60
+        tot_mins += 1
+        if int - 60 < 0
+            seconds = int
+        end
+    end
+    
+    mins = tot_mins - (hours * 60)
+
+    if int/60 == 0
+        seconds = int
+    end
+  
+  arr = ["#{hours}", "#{mins}", "#{seconds}"]
+
+  t = arr.map { |x| if x.length == 1
+                   x = "0" + x
+                    else
+                        x
+                    end
+              }
+
+  t.join("|")
+end
+
 def arrayOftimes(string)
    array = string.split(",")
    array.map {|x| times_to_seconds(x)}
@@ -27,10 +59,8 @@ def mean(string)
 end
 
 def median(string)
-    arr = arrayOftimes(string)
-    p arr.length
+    arr = arrayOftimes(string).sort
     x = arr.length/2
-    p x
     if arr.length % 2 == 0
         return (arr[x] + arr[x-1])/2
     else
@@ -40,21 +70,9 @@ end
 
 def range(string)
     arr = arrayOftimes(string)
-    highest = 0 
-    lowest = 0 
-   arr.each_with_index { |x, i| 
-    if x > x[i-1]
-        highest = x
-    end
-
-    if x < x[i-1]
-        lowest = x
-    elsif arr.length == 1
-        lowest = x
-    end
-  }
-
-  return (highest - lowest)
+    highest = arr.max
+    lowest = arr.min
+    return (highest - lowest)
 end
 
 def results(string)
@@ -67,7 +85,7 @@ def results(string)
       median = median(string)
     end
     
-    return "Range: 00|00|0#{range} Average: 00|00|0#{mean} Median: 00|00|0#{median}"
+    return "Range: #{seconds_to_times(range)} Average: #{seconds_to_times(mean)} Median: #{seconds_to_times(median)}"
 
 end
 
